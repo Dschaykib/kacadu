@@ -1,0 +1,33 @@
+body {
+	background-color: #3b486f;
+	color:  #fff;
+}
+
+/* INPUT FIELDS ******************************/
+
+#inputs {
+	background-color: #393642;
+}
+
+#inputFields {
+	width: 90%;
+	margin: 0 auto 0 auto;
+}
+
+#inputFields div {
+	border: 2px solid white;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	width: 20%;
+	float: left;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

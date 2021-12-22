@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Kacadu</title>
+	<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+	integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+	crossorigin="anonymous"
+	/>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<!-- LOGO -------------------> 
+	<div>
+		<!-- first use placholder until size of image is set to keep git clean
+			<img src="img/kacadu.jpg" alt="A picture of a cockatoo" style="width:120px;height:110px;">-->
+
+			<img src="https://via.placeholder.com/120x110?text=Kacadu" alt="A picture of a cockatoo">
+		</div>
+		<!-- MAIN TEXT -------------------> 
+		<div>
+			<h1>Kacadu</h1>
+			<h3>A KAnka CAmpagain DUplicator</h3>
+			<p>This website let's you import an exported Kanka campaign. You could use this as a way to create a backup or to duplicate a complete campaign.</p>
+			<p>There are only four steps:</p>
+			<ol>
+				<li>
+					<p><b>Enter a valid personal access token (PAT) for Kanka</b></p>
+					<p>To get a PAT you can follow this <a href="https://kanka.io/en/settings/api">link</a> to create one. </p>
+				</li>
+				<li>
+					<p><b>Select a campaign ID</b></p>
+					<p>This will be the target of the import. The dropdown shows a list of campaings you are able to create entites on.</p>
+				</li>
+				<li>
+					<p><b>Upload the exported zip file</b></p>
+					<p>In the campaign tab on Kanka, there is a submenu where you can export your campaign. The created zip file need to be uploaded here.</p>
+				</li>
+				<li>
+					<p><b>Press Start</b></p>
+					<p>After pressing the <em>Start</em> button the entites are evaluated and uploaded onto the choosen campaign. This step might take a while, depending on the size of your campaign due to the API's rate limits.</p>
+				</li>
+			</ol>
+
+		</div>	
+		<!-- INPUT FIELDS-------------------> 
+		<section id="inputs">
+			<form method="post" enctype="multipart/form-data" id="inputFields">
+				
+				<div>
+					<!-- PAT input-->
+					<input type="text" class="patinput" placeholder="Enter your PAT"/>
+					<button class="patbutton" type="submit">
+						<i class="fas fa-plus-square"></i>
+					</button>
+				</div>
+
+				<div>
+					<!-- ID Dropdown-->
+					<select name="campaignid" id="campaignid">
+						<option value="0">pick an ID</option>
+					</select>
+				</div>
+				<div>
+					<!-- upload file selection -->
+					<input name="kankaimport[]" type="file" multiple=true size="150" accept=".zip">
+				</div>
+				<div>
+					<!-- start button -->
+					<button class="startbtn" type="submit">START</button>
+				</div>
+			</form>
+		</section>
+
+
+		<script src="./app.js"></script>
+	</body>
+	</html>

@@ -1,20 +1,31 @@
 //Select DOM
-const patInput = document.querySelector(".patinput");
-const patBtn = document.querySelector(".patbutton");
+const patInput = document.querySelector('patinput');
+const patBtn = document.querySelector('.patbutton');
 
-var campaignID = document.querySelector(".campaignid");
-var campaignIDelement = document.getElementById("campaignid");
+var campaignID = document.querySelector('.campaignid');
+var campaignIDelement = document.getElementById('campaignid');
 var campaignList = [];
 
-// TODO upload input
-const startBtn = document.querySelector(".startbtn");
+const api_url = 'https://kanka.io/api/1.0';
 
-//var posCampaignID = document.createElement('posCampaignID');
+// just for testing
+document.getElementById('patinput').value = 'api_token' in window ? api_token : 'Enter you PAT'
+
+console.log(document.getElementById('patinput').value);
+
+
+
+// TODO upload input
+const startBtn = document.querySelector('.startbtn');
+
 
 
 //Event Listeners
-patBtn.addEventListener("click", getCampaign);
-startBtn.addEventListener("click", doStuff);
+patBtn.addEventListener('click', getCampaign);
+startBtn.addEventListener('click', doStuff);
+
+// test Kanka API call
+//getProfile();
 
 
 //Functions -------------------------------------------------------------
@@ -29,41 +40,79 @@ function doStuff(e) {
 }
 
 
+// get campaigns
+// function to retrieve kanka campaign ids for the given api key
+async function getCampaignList() {
+  var bearer = 'Bearer'.concat(" ", api_token);
+  var apicall = await fetch(api_url.concat('/campaigns'), {
+    method: 'GET',
+    headers: {
+      'Authorization': bearer,
+      'Content-type': 'application/json'
+    }
+  });
+  var response = await apicall.json();
+  var out = {
+    'id' : response.data.map(({ id }) => id),
+    'name' : response.data.map(({ name }) => name)
+  }
+  console.log(out);
+
+  return out;
+}
+
 
 // set selection of ID ---------------------
-function getCampaign(e) {
+async function getCampaign(e) {
   //Prevent natural behaviour
   e.preventDefault();
   //Create todo div
-  console.log('PAT: ', patInput.value)
-  console.log('campaignIDelement: ', campaignID)
+  console.log('PAT: ', patInput);
+  console.log('campaignIDelement: ', campaignID);
 
   // get list of IDs
-  // list of possible campaig id, will be later received by the api
-  var campaignList = (patInput.value == 'PAT') ? ['123','456','312']:['abc','qwe','asd'];
-  
-  console.log('campaignList: ', campaignList);
+  var campaignList = await getCampaignList();
 
   // empty previous selection
   if (campaignid != null) {
-    console.log('empty campaign choices')
+    console.log('empty campaign choices');
     var length = campaignid.options.length;
     for (i = length-1; i >= 0; i--) {
       campaignid.options[i] = null;
     };
-  }
+  };
   
   
   // update selection
   if (campaignList != null) {
-    console.log('set new campaign choices')
-    campaignList.forEach(element => {
-      campaignid.add(new Option(element, campaignList.indexOf(element)));
-    });  
+    console.log('set new campaign choices');
+    campaignList.id.forEach(element => {
+      campaignid.add(new Option(
+        campaignList.name[campaignList.id.indexOf(element)],
+        element));
+    });
+    console.log(campaignList);
   } else {
-    consol.log('no campaign in list')
-  }
+    console.log('no campaign in list');
+  };
   
+
+}
+
+
+// function to retrieve kanka api header data
+async function getProfile() {
+  var bearer = 'Bearer'.concat(" ", api_token);
+  var apicall = await fetch(api_url.concat('/profile'), {
+    method: 'GET',
+    headers: {
+      'Authorization': bearer,
+      'Content-type': 'application/json'
+    }
+  });
+  var response = await apicall.json();
+  console.log(response.data)
+  console.log("hey ", response.data.name);
 
 }
 
